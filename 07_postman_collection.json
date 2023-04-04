@@ -1,0 +1,80 @@
+{
+	"info": {
+		"_postman_id": "7acfb627-7bdc-4c2b-abe5-3ad2f1af961a",
+		"name": "postman关联",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "获取天气接口",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//获取全部的响应结果\r",
+							"var jsondata=pm.response.json()\r",
+							"//从响应结果中获得城市名\r",
+							"var city=jsondata.weatherinfo.city\r",
+							"//将城市名写入全局变量\r",
+							"pm.globals.set(\"glb_city\",city)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://www.weather.com.cn/data/sk/101010100.html?g={{glb_city}}",
+					"protocol": "http",
+					"host": [
+						"www",
+						"weather",
+						"com",
+						"cn"
+					],
+					"path": [
+						"data",
+						"sk",
+						"101010100.html"
+					],
+					"query": [
+						{
+							"key": "g",
+							"value": "{{glb_city}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "百度搜索接口-使用全局变量",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://www.baidu.com/s?wd={{glb_city}}",
+					"protocol": "http",
+					"host": [
+						"www",
+						"baidu",
+						"com"
+					],
+					"path": [
+						"s"
+					],
+					"query": [
+						{
+							"key": "wd",
+							"value": "{{glb_city}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
